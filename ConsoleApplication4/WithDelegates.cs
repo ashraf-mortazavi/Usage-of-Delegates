@@ -6,66 +6,31 @@ using System.Threading.Tasks;
 
 namespace ConsoleApplication4
 {
-    class Program
+
+    public enum Operation
+    {
+        Sum,
+        Substract,
+        Multiply
+    }
+    class WithDelegates
     {
 
-        public enum Operation
+        static void Main(string[] args)
         {
-            Sum,
-            Substract,
-            Multiply
+
+            var excutionmanager = new ExcutionManager();
+            var opator = new OperationManager(20, 10, excutionmanager);
+            var result = opator.Excute(Operation.Sum);
+            Console.WriteLine($"The result of the operation WITH delegates in code: {result}");
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            var opManager = new WithoutDelegates(20, 10);
+            var result2 = opManager.Execute(Operation.Sum);
+            Console.WriteLine($"The result of the operation WITHOUT delegates in code:{result}");
+            Console.ReadKey();
         }
 
-
-        //public class OperationManager
-        //{
-        //    private int _first;
-        //    private int _second;
-        //    public OperationManager( int first, int second)
-        //    {
-        //        _first = first;
-        //        _second = second;
-        //    }
-
-
-        //    private int Sum ()
-        //    {
-        //        return _first + _second;
-        //    }
-
-        //    private int Subtract()
-        //    {
-        //        return _first - _second;
-        //    }
-
-        //    private int Multiply()
-        //    {
-        //        return _first * _second;
-        //    }
-
-
-        //    public int Execute (Operation operation)
-        //    {
-        //        switch (operation)
-        //        {
-        //            case Operation.Sum:
-        //                return Sum();
-        //            case Operation.Substract:
-        //                return Subtract();
-        //            case Operation.Multiply:
-        //                return Multiply();
-        //            default:
-        //                return -1;
-        //        }
-        //    }
-        //}
-
-        /// <summary>
-        /// //////////////////////////////////////////////////////////////////////////////////
-        /// </summary>
-        /// <param name="args"></param>
-
-       public class ExcutionManager
+        public class ExcutionManager
         {
             public Dictionary<Operation, Func<int>> FuncExcute { get; set; }
             private Func<int> _sum;
@@ -93,7 +58,6 @@ namespace ConsoleApplication4
             }
 
         }
-
 
         public class OperationManager
         {
@@ -134,14 +98,6 @@ namespace ConsoleApplication4
          
         }
 
-        static void Main(string[] args)
-        {
-
-            var excutionmanager = new ExcutionManager();
-            var opator = new OperationManager(20, 10, excutionmanager);
-            var result = opator.Excute(Operation.Sum);
-            Console.WriteLine(result);
-            Console.ReadKey();
-        }
+   
     }
 }
